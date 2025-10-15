@@ -52,19 +52,32 @@ const About = () => {
 
           <div className="md:col-span-3 space-y-8">
             <div className="space-y-4">
-              <h2 className="text-3xl font-heading font-bold">Frontend Developer</h2>
+              <h2 className="text-3xl font-heading font-bold">
+                Frontend Developer
+              </h2>
               <div className="h-1 w-20 bg-gradient-primary rounded-full" />
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm a passionate frontend developer with 5+ years of experience building
-                responsive and user-friendly web applications. I specialize in creating
-                elegant solutions to complex problems, with a keen eye for design and
-                performance optimization.
+                I'm a passionate frontend developer with 4+ years of experience
+                building responsive and user-friendly web applications. I turn
+                ideas into elegant, performant web experiences that balance both
+                creativity and logic. I work primarily with React, TypeScript,
+                Tailwind CSS, and Vite, crafting interfaces that don't just
+                function - they flow.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                When I'm not coding, you'll find me exploring new technologies,
-                contributing to open source projects, or sharing knowledge with the
-                developer community through blog posts and talks.
+                I've built admin systems, dynamic dashboards, and interactive
+                web platforms that prioritize clarity, responsiveness, and that
+                subtle "wow" factor. Beyond code, I'm big on design thinking and
+                user experience - because great frontend isn't just about pixels
+                or syntax; it's about storytelling. I love blending tech and art
+                to build interfaces that connect with people on a visual and
+                emotional level. When I'm not debugging or fine-tuning layouts,
+                you'll probably find me exploring design trends, mentoring, or
+                refactoring something that was "fine" but could be better. Let's
+                just say - I believe in beautiful code, timeless design, and
+                never settling for "good enough."
               </p>
+              <p></p>
             </div>
 
             {/* Highlights Grid */}
@@ -76,7 +89,9 @@ const About = () => {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <item.icon className="h-8 w-8 text-primary mb-3" />
-                  <h3 className="font-heading font-semibold mb-1">{item.title}</h3>
+                  <h3 className="font-heading font-semibold mb-1">
+                    {item.title}
+                  </h3>
                   <p className="text-sm text-muted-foreground">{item.desc}</p>
                 </div>
               ))}
@@ -86,7 +101,9 @@ const About = () => {
 
         {/* Timeline */}
         <div className="space-y-8 animate-slide-in-right">
-          <h2 className="text-3xl font-heading font-bold text-center">Journey</h2>
+          <h2 className="text-3xl font-heading font-bold text-center">
+            Journey
+          </h2>
           <div className="relative max-w-3xl mx-auto">
             <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-primary" />
             <div className="space-y-8">
@@ -100,7 +117,9 @@ const About = () => {
                     {item.year}
                   </div>
                   <div className="p-6 rounded-xl glass-card border border-border hover:border-primary/50 transition-all duration-300">
-                    <h3 className="text-xl font-heading font-semibold mb-2">{item.title}</h3>
+                    <h3 className="text-xl font-heading font-semibold mb-2">
+                      {item.title}
+                    </h3>
                     <p className="text-muted-foreground">{item.desc}</p>
                   </div>
                 </div>

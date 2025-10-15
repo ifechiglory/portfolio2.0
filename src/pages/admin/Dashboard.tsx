@@ -28,13 +28,6 @@ const Dashboard = () => {
       color: "text-primary",
     },
     {
-      title: "Blog Posts",
-      description: "Create and edit blog posts",
-      icon: FileText,
-      link: "/admin/blog",
-      color: "text-accent",
-    },
-    {
       title: "Messages",
       description: "View contact form submissions",
       icon: Mail,

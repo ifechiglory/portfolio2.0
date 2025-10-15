@@ -11,7 +11,6 @@ const Navigation = () => {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Projects", path: "/projects" },
-    { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -22,7 +21,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="text-2xl font-heading font-bold gradient-text hover:opacity-80 transition-opacity">
-            AR
+            I.E
           </Link>
 
           <div className="flex items-center gap-8">
