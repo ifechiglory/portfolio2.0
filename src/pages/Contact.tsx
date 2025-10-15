@@ -59,105 +59,131 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen py-20 px-4">
-      <div className="max-w-2xl mx-auto space-y-12">
+      <div className="max-w-4xl mx-auto space-y-16">
+        {/* Header */}
         <div className="text-center space-y-4 animate-fade-in">
-          <h1 className="text-4xl md:text-6xl font-heading font-bold">
-            Get In <span className="gradient-text">Touch</span>
+          <h1 className="text-5xl md:text-7xl font-heading font-bold">
+            Let's <span className="gradient-text">Connect</span>
           </h1>
-          <p className="text-xl text-muted-foreground">
-            Let's work together on your next project
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Have a project in mind? Let's discuss how we can work together
           </p>
         </div>
 
-        <div className="flex items-center justify-center gap-6 animate-slide-up">
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-all"
-          >
-            <Github className="h-6 w-6" />
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-all"
-          >
-            <Linkedin className="h-6 w-6" />
-          </a>
-          <a
-            href="mailto:contact@example.com"
-            className="p-3 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-all"
-          >
-            <Mail className="h-6 w-6" />
-          </a>
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Contact Info */}
+          <div className="space-y-6 animate-slide-up">
+            <div className="p-8 rounded-2xl glass-card border border-primary/20 space-y-8">
+              <div>
+                <h2 className="text-2xl font-heading font-bold mb-4">Get in touch</h2>
+                <p className="text-muted-foreground">
+                  I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                {[
+                  { icon: Mail, label: "Email", value: "contact@example.com", href: "mailto:contact@example.com" },
+                  { icon: Github, label: "GitHub", value: "@username", href: "https://github.com" },
+                  { icon: Linkedin, label: "LinkedIn", value: "/in/username", href: "https://linkedin.com" },
+                ].map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target={item.label !== "Email" ? "_blank" : undefined}
+                    rel={item.label !== "Email" ? "noopener noreferrer" : undefined}
+                    className="flex items-center gap-4 p-4 rounded-xl glass-card border border-border hover:border-primary/50 transition-all duration-300 group neon-border"
+                  >
+                    <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                      <item.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">{item.label}</p>
+                      <p className="font-medium">{item.value}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 animate-slide-in-right">
+            <div className="p-8 rounded-2xl glass-card border border-primary/20 space-y-6">
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-medium flex items-center gap-2">
+                  Your Name
+                </label>
+                <Input
+                  id="name"
+                  placeholder="John Doe"
+                  {...register("name")}
+                  className="glass-card border-border focus:border-primary transition-colors"
+                />
+                {errors.name && (
+                  <p className="text-sm text-destructive flex items-center gap-1">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
+                  Email Address
+                </label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="john@example.com"
+                  {...register("email")}
+                  className="glass-card border-border focus:border-primary transition-colors"
+                />
+                {errors.email && (
+                  <p className="text-sm text-destructive flex items-center gap-1">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="message" className="text-sm font-medium flex items-center gap-2">
+                  Message
+                </label>
+                <Textarea
+                  id="message"
+                  placeholder="Tell me about your project or idea..."
+                  rows={6}
+                  {...register("message")}
+                  className="glass-card border-border focus:border-primary transition-colors resize-none"
+                />
+                {errors.message && (
+                  <p className="text-sm text-destructive flex items-center gap-1">
+                    {errors.message.message}
+                  </p>
+                )}
+              </div>
+
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full gradient-primary shadow-glow-violet hover:shadow-glow-cyan transition-all duration-500"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Mail className="mr-2 h-5 w-5" />
+                    Send Message
+                  </>
+                )}
+              </Button>
+            </div>
+          </form>
         </div>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 animate-scale-in">
-          <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium">
-              Name
-            </label>
-            <Input
-              id="name"
-              placeholder="Your name"
-              {...register("name")}
-              className="bg-card"
-            />
-            {errors.name && (
-              <p className="text-sm text-destructive">{errors.name.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium">
-              Email
-            </label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="your@email.com"
-              {...register("email")}
-              className="bg-card"
-            />
-            {errors.email && (
-              <p className="text-sm text-destructive">{errors.email.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="message" className="text-sm font-medium">
-              Message
-            </label>
-            <Textarea
-              id="message"
-              placeholder="Tell me about your project..."
-              rows={6}
-              {...register("message")}
-              className="bg-card resize-none"
-            />
-            {errors.message && (
-              <p className="text-sm text-destructive">{errors.message.message}</p>
-            )}
-          </div>
-
-          <Button
-            type="submit"
-            size="lg"
-            className="w-full gradient-primary shadow-glow"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Sending...
-              </>
-            ) : (
-              "Send Message"
-            )}
-          </Button>
-        </form>
       </div>
     </div>
   );

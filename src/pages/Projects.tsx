@@ -29,55 +29,68 @@ const Projects = () => {
 
   return (
     <div className="min-h-screen py-20 px-4">
-      <div className="max-w-6xl mx-auto space-y-12">
+      <div className="max-w-7xl mx-auto space-y-16">
+        {/* Header */}
         <div className="text-center space-y-4 animate-fade-in">
-          <h1 className="text-4xl md:text-6xl font-heading font-bold">
-            My <span className="gradient-text">Projects</span>
+          <h1 className="text-5xl md:text-7xl font-heading font-bold">
+            Featured <span className="gradient-text">Projects</span>
           </h1>
-          <p className="text-xl text-muted-foreground">
-            A collection of my recent work and side projects
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            A showcase of my latest work — from concept to deployment
           </p>
         </div>
 
         {projects && projects.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <Card
                 key={project.id}
-                className="group hover:shadow-glow transition-all duration-300 animate-scale-in border-primary/20"
+                className="group relative overflow-hidden glass-card border-primary/20 hover:border-primary/50 transition-all duration-500 animate-scale-in neon-border"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+                
                 {project.image_url && (
-                  <div className="aspect-video overflow-hidden rounded-t-lg">
+                  <div className="relative aspect-video overflow-hidden">
                     <img
                       src={project.image_url}
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
                   </div>
                 )}
-                <CardHeader>
-                  <CardTitle className="group-hover:text-primary transition-colors">
+                
+                <CardHeader className="relative z-10">
+                  <CardTitle className="text-2xl font-heading group-hover:text-primary transition-colors duration-300">
                     {project.title}
                   </CardTitle>
-                  <CardDescription>{project.description}</CardDescription>
+                  <CardDescription className="text-base">
+                    {project.description}
+                  </CardDescription>
                 </CardHeader>
-                <CardContent>
+                
+                <CardContent className="relative z-10">
                   <div className="flex flex-wrap gap-2">
                     {project.tech_stack?.map((tech) => (
-                      <Badge key={tech} variant="secondary" className="text-xs">
+                      <Badge 
+                        key={tech} 
+                        className="glass-card border-primary/30 text-xs px-3 py-1"
+                      >
                         {tech}
                       </Badge>
                     ))}
                   </div>
                 </CardContent>
-                <CardFooter className="gap-2">
+                
+                <CardFooter className="gap-3 relative z-10">
                   {project.github_link && (
                     <Button
                       variant="outline"
                       size="sm"
                       asChild
-                      className="flex-1"
+                      className="flex-1 glass-card border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all"
                     >
                       <a
                         href={project.github_link}
@@ -93,7 +106,7 @@ const Projects = () => {
                     <Button
                       size="sm"
                       asChild
-                      className="flex-1 gradient-primary"
+                      className="flex-1 gradient-primary shadow-glow-violet hover:shadow-glow-cyan transition-all duration-500"
                     >
                       <a
                         href={project.live_demo}
@@ -110,8 +123,11 @@ const Projects = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center text-muted-foreground">
-            <p>No projects to display yet.</p>
+          <div className="text-center py-20">
+            <div className="inline-flex p-6 rounded-2xl glass-card border border-primary/20 mb-4">
+              <Loader2 className="h-12 w-12 text-primary/50" />
+            </div>
+            <p className="text-lg text-muted-foreground">No projects to display yet.</p>
           </div>
         )}
       </div>
