@@ -8,7 +8,7 @@ const Home = () => {
       <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
         <div className="space-y-4">
           <h1 className="text-5xl md:text-7xl font-heading font-bold tracking-tight">
-            Hi, I'm <span className="gradient-text">Alex Rivera</span>
+            Hi, I'm <span className="gradient-text">Ifechukwu Edet</span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground">
             Frontend Developer

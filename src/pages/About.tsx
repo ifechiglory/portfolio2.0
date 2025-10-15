@@ -6,12 +6,9 @@ const About = () => {
     "TypeScript",
     "Tailwind CSS",
     "Next.js",
-    "Vue.js",
-    "Node.js",
     "Git",
     "Figma",
     "REST APIs",
-    "GraphQL",
     "Responsive Design",
     "Accessibility",
   ];
@@ -32,7 +29,7 @@ const About = () => {
           <div className="space-y-6">
             <div className="aspect-square rounded-2xl bg-gradient-primary shadow-glow overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop"
+                src="/profile.jpg"
                 alt="Profile"
                 className="w-full h-full object-cover opacity-90"
               />
