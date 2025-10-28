@@ -7,11 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Trash2 } from "lucide-react";
 
-<<<<<<< HEAD
 export default function Projects() {
-=======
-export default function AdminProjects() {
->>>>>>> 0bb003e6c9742423fb4f3c8bd9a4453947c2c383
   const { toast } = useToast();
   const [form, setForm] = useState({
     title: "",
