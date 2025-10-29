@@ -13,6 +13,8 @@ const AboutMe = () => {
     "Redux",
     "TypeScript",
     "UI/UX Implementation",
+    "API Integration",
+    "State Management",
   ];
 
   const experiences = [
@@ -22,6 +24,14 @@ const AboutMe = () => {
       company: "Attueyi Coding Academy",
       description:
         "Built and maintained responsive React apps using Vite and Tailwind. Tutored students on Frontend Development",
+      icon: <Briefcase className="text-primary w-5 h-5" />,
+    },
+    {
+      year: "2025",
+      role: "Frontend Developer (Contract)",
+      company: "Garderners For Africa",
+      description:
+        "Built and maintained a responsive React school portal using Vite, Tailwind and Next. Built responsive user dashboards. Integrated RESTful APIs to fetch and display dynamic data. Managed state using React Redux Toolkit",
       icon: <Briefcase className="text-primary w-5 h-5" />,
     },
     {

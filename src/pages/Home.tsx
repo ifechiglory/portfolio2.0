@@ -11,7 +11,8 @@ const Home = () => {
             Hi, I'm <span className="gradient-text">Ifechukwu Edet</span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-            Frontend Developer crafting beautiful, performant web applications with cutting-edge technologies
+            Frontend Developer crafting beautiful, performant web applications
+            with cutting-edge technologies
           </p>
         </div>
 
@@ -27,9 +28,9 @@ const Home = () => {
             </Button>
           </Link>
           <Link to="/contact">
-            <Button 
-              size="lg" 
-              variant="outline" 
+            <Button
+              size="lg"
+              variant="outline"
               className="glass-card border-primary/30 hover:bg-primary/10 px-8 py-6 text-lg backdrop-blur-xl"
             >
               Get In Touch
@@ -40,9 +41,21 @@ const Home = () => {
         {/* Social Links */}
         <div className="flex items-center justify-center gap-6 pt-12">
           {[
-            { icon: Github, href: "https://github.com", label: "GitHub" },
-            { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-            { icon: Mail, href: "mailto:contact@example.com", label: "Email" }
+            {
+              icon: Github,
+              href: "https://github.com/ifechiglory",
+              label: "GitHub",
+            },
+            {
+              icon: Linkedin,
+              href: "https://www.linkedin.com/in/ifechukwuedet/",
+              label: "LinkedIn",
+            },
+            {
+              icon: Mail,
+              href: "mailto:ifechiglory@gmail.com",
+              label: "Email",
+            },
           ].map(({ icon: Icon, href, label }) => (
             <a
               key={label}
