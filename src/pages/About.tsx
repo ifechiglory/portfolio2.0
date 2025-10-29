@@ -62,7 +62,7 @@ const AboutMe = () => {
             transition={{ duration: 0.6 }}
           >
             <img
-              src="/src/assets/proifle.JPG"
+              src="/profile.jpg"
               alt="Efay portrait"
               className="w-72 h-72 object-cover rounded-2xl shadow-xl border-2 border-primary"
             />
