@@ -35,8 +35,7 @@ const AboutMe = () => {
       year: "2024 - Present",
       role: "Frontend Tutor",
       company: "Attueyi Coding Academy",
-      description:
-        "Built and maintained responsive React apps using Vite and Tailwind. Tutored students on Frontend Development.",
+      description: "Designed and delivered a 12-week frontend development curriculum covering HTML, CSS, JavaScript, and React. Taught foundational and advanced topics, including layout systems (flexbox & grid), responsive design, Tailwind CSS, and API integration. Created detailed class notes, weekly schedules, and hands-on projects to reinforce learning outcomes. Guided students through real-world concepts like Git/GitHub workflows, component architecture, and state management in React.  Designed and delivered digital quizzes and assessments via Typeform, Tally.so, and Microsoft Forms. Mentored students through code reviews, debugging, and final project preparation.",
       icon: <Briefcase className="text-primary w-5 h-5" />,
     },
     {

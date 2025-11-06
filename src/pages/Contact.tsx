@@ -75,30 +75,52 @@ const Contact = () => {
           <div className="space-y-6 animate-slide-up">
             <div className="p-8 rounded-2xl glass-card border border-primary/20 space-y-8">
               <div>
-                <h2 className="text-2xl font-heading font-bold mb-4">Get in touch</h2>
+                <h2 className="text-2xl font-heading font-bold mb-4">
+                  Get in touch
+                </h2>
                 <p className="text-muted-foreground">
-                  I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                  I'm always open to discussing new projects, creative ideas, or
+                  opportunities to be part of your vision.
                 </p>
               </div>
 
               <div className="space-y-4">
                 {[
-                  { icon: Mail, label: "Email", value: "contact@example.com", href: "mailto:contact@example.com" },
-                  { icon: Github, label: "GitHub", value: "@username", href: "https://github.com" },
-                  { icon: Linkedin, label: "LinkedIn", value: "/in/username", href: "https://linkedin.com" },
+                  {
+                    icon: Mail,
+                    label: "Email",
+                    value: "ifechiglory@gmail.com",
+                    href: "mailto:ifechiglory@gmail.com",
+                  },
+                  {
+                    icon: Github,
+                    label: "GitHub",
+                    value: "@ifechiglory",
+                    href: "https://github.com/ifechiglory",
+                  },
+                  {
+                    icon: Linkedin,
+                    label: "LinkedIn",
+                    value: "/in/ifechukwuedet",
+                    href: "https://www.linkedin.com/in/ifechukwuedet",
+                  },
                 ].map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
                     target={item.label !== "Email" ? "_blank" : undefined}
-                    rel={item.label !== "Email" ? "noopener noreferrer" : undefined}
+                    rel={
+                      item.label !== "Email" ? "noopener noreferrer" : undefined
+                    }
                     className="flex items-center gap-4 p-4 rounded-xl glass-card border border-border hover:border-primary/50 transition-all duration-300 group neon-border"
                   >
                     <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
                       <item.icon className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">{item.label}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {item.label}
+                      </p>
                       <p className="font-medium">{item.value}</p>
                     </div>
                   </a>
@@ -108,10 +130,16 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 animate-slide-in-right">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-6 animate-slide-in-right"
+          >
             <div className="p-8 rounded-2xl glass-card border border-primary/20 space-y-6">
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium flex items-center gap-2">
+                <label
+                  htmlFor="name"
+                  className="text-sm font-medium flex items-center gap-2"
+                >
                   Your Name
                 </label>
                 <Input
@@ -128,7 +156,10 @@ const Contact = () => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
+                <label
+                  htmlFor="email"
+                  className="text-sm font-medium flex items-center gap-2"
+                >
                   Email Address
                 </label>
                 <Input
@@ -146,7 +177,10 @@ const Contact = () => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium flex items-center gap-2">
+                <label
+                  htmlFor="message"
+                  className="text-sm font-medium flex items-center gap-2"
+                >
                   Message
                 </label>
                 <Textarea

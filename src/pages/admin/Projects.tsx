@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2, Trash2 } from "lucide-react";
+import { Loader2, Trash2, Edit, X, Save } from "lucide-react";
 
 export default function Projects() {
   const { toast } = useToast();
@@ -22,6 +22,15 @@ export default function Projects() {
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState({
+    title: "",
+    description: "",
+    tech_stack: "",
+    github_link: "",
+    live_demo: "",
+    image_url: "",
+  });
 
   const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
   const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
@@ -56,7 +65,13 @@ export default function Projects() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ✅ Cloudinary image upload
+  const handleEditChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setEditForm({ ...editForm, [e.target.name]: e.target.value });
+  };
+
+  // ✅ Cloudinary image upload for add form
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -79,6 +94,45 @@ export default function Projects() {
 
       if (uploadRes.secure_url) {
         setForm({ ...form, image_url: uploadRes.secure_url });
+        toast({ title: "✅ Image uploaded successfully" });
+      } else {
+        throw new Error(uploadRes.error?.message || "Image upload failed");
+      }
+    } catch (err: any) {
+      console.error("Image upload error:", err);
+      toast({
+        title: "Upload failed",
+        description: err.message,
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // ✅ Cloudinary image upload for edit form
+  const handleEditFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", UPLOAD_PRESET);
+
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+
+      const uploadRes = await res.json();
+
+      if (uploadRes.secure_url) {
+        setEditForm({ ...editForm, image_url: uploadRes.secure_url });
         toast({ title: "✅ Image uploaded successfully" });
       } else {
         throw new Error(uploadRes.error?.message || "Image upload failed");
@@ -140,6 +194,69 @@ export default function Projects() {
     }
   };
 
+  // ✅ Start editing a project
+  const startEditing = (project: any) => {
+    setEditingId(project.id);
+    setEditForm({
+      title: project.title,
+      description: project.description,
+      tech_stack: Array.isArray(project.tech_stack) 
+        ? project.tech_stack.join(", ") 
+        : project.tech_stack || "",
+      github_link: project.github_link || "",
+      live_demo: project.live_demo || "",
+      image_url: project.image_url || "",
+    });
+  };
+
+  // ✅ Cancel editing
+  const cancelEditing = () => {
+    setEditingId(null);
+    setEditForm({
+      title: "",
+      description: "",
+      tech_stack: "",
+      github_link: "",
+      live_demo: "",
+      image_url: "",
+    });
+  };
+
+  // ✅ Update project
+  const handleUpdate = async (id: string) => {
+    setAdding(true);
+    try {
+      const { error } = await supabase
+        .from("projects")
+        .update({
+          title: editForm.title,
+          description: editForm.description,
+          tech_stack: editForm.tech_stack
+            ? editForm.tech_stack.split(",").map((s) => s.trim())
+            : [],
+          github_link: editForm.github_link,
+          live_demo: editForm.live_demo,
+          image_url: editForm.image_url,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", id);
+
+      if (error) throw error;
+
+      toast({ title: "✅ Project updated successfully!" });
+      setEditingId(null);
+      fetchProjects();
+    } catch (err: any) {
+      toast({
+        title: "Error updating project",
+        description: err.message,
+        variant: "destructive",
+      });
+    } finally {
+      setAdding(false);
+    }
+  };
+
   const handleDelete = async (id: string) => {
     const { error } = await supabase.from("projects").delete().eq("id", id);
 
@@ -161,7 +278,8 @@ export default function Projects() {
       <h1 className="text-3xl font-bold mb-6">Manage Projects</h1>
 
       {/* Add Project Form */}
-      <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-4 mb-10">
+      <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-4 mb-10 p-6 border rounded-lg">
+        <h2 className="text-xl font-semibold md:col-span-2">Add New Project</h2>
         <Input
           name="title"
           placeholder="Title"
@@ -242,54 +360,156 @@ export default function Projects() {
           {projects.map((project) => (
             <Card key={project.id} className="relative">
               <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
+                <CardTitle>
+                  {editingId === project.id ? (
+                    <Input
+                      name="title"
+                      value={editForm.title}
+                      onChange={handleEditChange}
+                      className="text-lg font-bold"
+                    />
+                  ) : (
+                    project.title
+                  )}
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                {project.image_url && (
-                  <img
-                    src={project.image_url}
-                    alt={project.title}
-                    className="rounded-md mb-3"
-                  />
+                {editingId === project.id ? (
+                  <>
+                    <div className="flex flex-col mb-3">
+                      <label className="text-sm font-medium mb-1">Image</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleEditFileChange}
+                        disabled={uploading}
+                      />
+                      {uploading && (
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Uploading image...
+                        </p>
+                      )}
+                    </div>
+                    {editForm.image_url && (
+                      <img
+                        src={editForm.image_url}
+                        alt={editForm.title}
+                        className="rounded-md mb-3"
+                      />
+                    )}
+                    <Textarea
+                      name="description"
+                      value={editForm.description}
+                      onChange={handleEditChange}
+                      className="mb-2"
+                    />
+                    <Input
+                      name="tech_stack"
+                      placeholder="Tech Stack"
+                      value={editForm.tech_stack}
+                      onChange={handleEditChange}
+                      className="mb-2"
+                    />
+                    <Input
+                      name="github_link"
+                      placeholder="GitHub URL"
+                      value={editForm.github_link}
+                      onChange={handleEditChange}
+                      className="mb-2"
+                    />
+                    <Input
+                      name="live_demo"
+                      placeholder="Live Demo URL"
+                      value={editForm.live_demo}
+                      onChange={handleEditChange}
+                      className="mb-3"
+                    />
+                  </>
+                ) : (
+                  <>
+                    {project.image_url && (
+                      <img
+                        src={project.image_url}
+                        alt={project.title}
+                        className="rounded-md mb-3"
+                      />
+                    )}
+                    <p className="text-sm mb-2">{project.description}</p>
+                    <p className="text-xs text-muted-foreground mb-2">
+                      Tech Stack:{" "}
+                      {Array.isArray(project.tech_stack)
+                        ? project.tech_stack.join(", ")
+                        : project.tech_stack}
+                    </p>
+                    <div className="flex gap-2 text-sm">
+                      {project.github_link && (
+                        <a
+                          href={project.github_link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          GitHub
+                        </a>
+                      )}
+                      {project.live_demo && (
+                        <a
+                          href={project.live_demo}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-green-600 hover:underline"
+                        >
+                          Live Demo
+                        </a>
+                      )}
+                    </div>
+                  </>
                 )}
-                <p className="text-sm mb-2">{project.description}</p>
-                <p className="text-xs text-muted-foreground mb-2">
-                  Tech Stack:{" "}
-                  {Array.isArray(project.tech_stack)
-                    ? project.tech_stack.join(", ")
-                    : project.tech_stack}
-                </p>
-                <div className="flex gap-2 text-sm">
-                  {project.github_link && (
-                    <a
-                      href={project.github_link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-blue-600 hover:underline"
-                    >
-                      GitHub
-                    </a>
-                  )}
-                  {project.live_demo && (
-                    <a
-                      href={project.live_demo}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-green-600 hover:underline"
-                    >
-                      Live Demo
-                    </a>
-                  )}
-                </div>
               </CardContent>
-              <Button
-                variant="destructive"
-                size="icon"
-                onClick={() => handleDelete(project.id)}
-                className="absolute top-2 right-2"
-              >
-                <Trash2 className="w-4 h-4" />
-              </Button>
+              
+              {/* Action Buttons */}
+              <div className="absolute bottom-2 right-2 flex gap-2">
+                {editingId === project.id ? (
+                  <>
+                    <Button
+                      variant="default"
+                      size="icon"
+                      onClick={() => handleUpdate(project.id)}
+                      disabled={adding}
+                    >
+                      {adding ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Save className="w-4 h-4" />
+                      )}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={cancelEditing}
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => startEditing(project)}
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      size="icon"
+                      onClick={() => handleDelete(project.id)}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </>
+                )}
+              </div>
             </Card>
           ))}
         </div>

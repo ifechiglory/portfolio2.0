@@ -36,7 +36,7 @@ const Projects = () => {
             Featured <span className="gradient-text">Projects</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A showcase of my latest work — from concept to deployment
+            A showcase of my latest work
           </p>
         </div>
 
@@ -58,7 +58,7 @@ const Projects = () => {
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-30" />
                   </div>
                 )}
                 
@@ -76,7 +76,7 @@ const Projects = () => {
                     {project.tech_stack?.map((tech) => (
                       <Badge 
                         key={tech} 
-                        className="glass-card border-primary/30 text-xs px-3 py-1"
+                        className="glass-card border-black/30 text-xs px-3 py-1 text-black dark:text-white"
                       >
                         {tech}
                       </Badge>
@@ -90,7 +90,7 @@ const Projects = () => {
                       variant="outline"
                       size="sm"
                       asChild
-                      className="flex-1 glass-card border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all"
+                      className="flex-1 glass-card border-primary/30 hover:bg-primary/10 hover:border-primary/50 hover:text-black dark:hover:text-white transition-all"
                     >
                       <a
                         href={project.github_link}

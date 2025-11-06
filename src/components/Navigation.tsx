@@ -16,11 +16,11 @@ const Navigation = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-primary/10 backdrop-blur-xl">
-      <div className="container mx-auto px-4 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-black backdrop-blur-xl">
+      <div className="container mx-auto px-4 py-4 border-b border-black/10">
         <div className="flex items-center justify-between">
           <Link to="/" className="text-2xl font-heading font-bold gradient-text hover:opacity-80 transition-opacity">
-            I.E
+            <img src="favicon.svg" alt="Logo"/>
           </Link>
 
           <div className="flex items-center gap-8">
