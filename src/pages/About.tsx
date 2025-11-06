@@ -8,30 +8,35 @@ const AboutMe = () => {
     "Vite",
     "Tailwind CSS",
     "JavaScript (ES6+)",
+    "Zustand",
+    "Tanstack-query",
+    "Zod",
+    "React-router-dom",
     "Firebase",
     "Git & GitHub",
     "Redux",
+    "Redux-Toolkit",
     "TypeScript",
     "UI/UX Implementation",
-    "API Integration",
+    "RESTful API",
     "State Management",
   ];
 
   const experiences = [
     {
-      year: "2024 - Present",
-      role: "Frontend Developer",
-      company: "Attueyi Coding Academy",
-      description:
-        "Built and maintained responsive React apps using Vite and Tailwind. Tutored students on Frontend Development",
-      icon: <Briefcase className="text-primary w-5 h-5" />,
-    },
-    {
-      year: "2025",
+      year: "2025 - Present",
       role: "Frontend Developer (Contract)",
       company: "Garderners For Africa",
       description:
-        "Built and maintained a responsive React school portal using Vite, Tailwind and Next. Built responsive user dashboards. Integrated RESTful APIs to fetch and display dynamic data. Managed state using React Redux Toolkit",
+        "Built and maintained a responsive React school portal using Vite, Tailwind and Next. Built responsive user dashboards. Integrated RESTful APIs to fetch and display dynamic data. Managed state using React Redux Toolkit.",
+      icon: <Briefcase className="text-primary w-5 h-5" />,
+    },
+    {
+      year: "2024 - Present",
+      role: "Frontend Tutor",
+      company: "Attueyi Coding Academy",
+      description:
+        "Built and maintained responsive React apps using Vite and Tailwind. Tutored students on Frontend Development.",
       icon: <Briefcase className="text-primary w-5 h-5" />,
     },
     {
@@ -39,7 +44,7 @@ const AboutMe = () => {
       role: "Frontend Developer (Intern)",
       company: "Daabo Software Engineering Co",
       description:
-        "Delivered scalable, pixel-perfect web apps with Firebase backends and optimized SEO performance. Built and managed user dashboards",
+        "Delivered scalable, pixel-perfect web apps with Firebase backends and optimized SEO performance. Built and managed user dashboards.",
       icon: <Laptop className="text-primary w-5 h-5" />,
     },
     {
